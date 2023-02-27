@@ -1,0 +1,17 @@
+{
+	"token": "",
+	"boot": {
+		"enabled": true,
+    	"serverID": "",
+    	"channelID": ""
+	},
+  "locale": "locale.txt",
+  "private_role": {
+  	"guildID": "roleID"
+  },
+  "activity": {
+  	"type": "STREAMING",
+  	"value": "Introverted stuff",
+  },
+
+}
