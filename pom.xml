@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.stella</groupId>
   <artifactId>MusicBot</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <name>MusicBot</name>
   <description>A private music player for Discord using JDA</description>
   
@@ -34,7 +34,7 @@
 			  <executions>
 				  <execution>
 					  <id>copy-dependencies</id>
-					  <phase>package</phase>
+					  <phase>install</phase>
 					  <goals>
 						  <goal>copy-dependencies</goal>
 					  </goals>
