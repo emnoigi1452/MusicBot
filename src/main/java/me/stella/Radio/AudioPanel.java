@@ -1,5 +1,6 @@
 package me.stella.Radio;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,6 +53,10 @@ public class AudioPanel extends AudioEventAdapter {
 		this.player.stopTrack();
 		this.player.destroy();
 		existingPayload = Collections.synchronizedSet(new HashSet<String>());
+		for(File audioFile: MusicBot.resource.listFiles()) {
+			if(audioFile.isFile())
+				audioFile.delete();
+		}
 	}
 	
 	public synchronized void perform() {

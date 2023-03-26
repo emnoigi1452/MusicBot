@@ -40,6 +40,11 @@ public class Application {
 	
 	public void kill() {
 		try {
+			if(BotModules.getAudioPanel() != null) {
+				BotModules.getAudioPanel().getPlayer().stopTrack();
+				BotModules.getAudioPanel().getHost().getGuild().getAudioManager().closeAudioConnection();
+				BotModules.getAudioPanel()._clean();
+			}
 			this.app.retrieveCommands().submit().get().stream().forEach(cmd -> {
 				try {
 					cmd.delete().delay(3, TimeUnit.SECONDS).queue();
@@ -53,7 +58,8 @@ public class Application {
 				if(audioFile.isFile())
 					audioFile.delete();
 			}
-			BotModules.getAudioPlayerManager().shutdown();
+			if(BotModules.getAudioPlayerManager() != null)
+				BotModules.getAudioPlayerManager().shutdown();
 			MusicBot.logger.log(Level.INFO, "Saving the configuration...");
 			new Thread(() -> {
 				try {

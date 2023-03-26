@@ -22,7 +22,7 @@ public class LoopCommand extends BaseSlash {
 	
 	public static List<CommandOption> initParameters() {
 		List<CommandOption> option = new ArrayList<CommandOption>();
-		option.add(new CommandOption(OptionType.STRING, "mode", "The loop mode for the audio player", false));
+		option.add(new CommandOption(OptionType.STRING, "mode", "The loop mode for the audio player", false, true));
 		return option;
 	}
 

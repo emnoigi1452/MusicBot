@@ -17,6 +17,7 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 
 import me.stella.Commands.SlashManager;
+import me.stella.Commands.Implementation.JumpCommand;
 import me.stella.Commands.Implementation.KillCommand;
 import me.stella.Commands.Implementation.LoopCommand;
 import me.stella.Commands.Implementation.PauseCommand;
@@ -65,6 +66,7 @@ public class MusicBot {
 		manager.addCommand(new QueueCommand());
 		manager.addCommand(new SkipCommand());
 		manager.addCommand(new RemoveCommand());
+		manager.addCommand(new JumpCommand());
 	}
 	
 	public static void main(String[] args) {

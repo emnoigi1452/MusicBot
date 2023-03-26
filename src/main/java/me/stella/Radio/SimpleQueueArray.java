@@ -15,11 +15,13 @@ public class SimpleQueueArray {
 	private int current;
 	// 1 - no, 2 - current, 3 - list
 	private byte loopMode;
+	private Object[] jumpStatus;
 	
 	public SimpleQueueArray(AudioPlayer player) {
 		this.player = player;
 		this.queue = Collections.synchronizedList(new ArrayList<AudioTrack>());
 		this.current = -1; this.loopMode = 0;
+		this.jumpStatus = new Object[] { false, -1 };
 	}
 	
 	public AudioPlayer _player() {
@@ -38,6 +40,13 @@ public class SimpleQueueArray {
 	
 	public int _now() {
 		return this.current;
+	}
+	
+	public boolean _jump(int i) {
+		if(!((i > 0) && (i <= _list())))
+			return false;
+		this.jumpStatus = new Object[] { true, i };
+		return true;
 	}
 	
 	public int _list() {
@@ -97,6 +106,11 @@ public class SimpleQueueArray {
 	}
 	
 	public AudioTrack _next() {
+		if(Boolean.valueOf(String.valueOf(this.jumpStatus[0])).booleanValue()) {
+			this.current = Integer.valueOf(String.valueOf(this.jumpStatus[1])) - 1;
+			this.jumpStatus = new Object[] { false, -1 };
+			return this.queue.get(current).makeClone();
+		}
 		if(this.queue.isEmpty())
 			return null;
 		if(loopMode == 2)

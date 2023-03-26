@@ -53,7 +53,7 @@ public abstract class BaseSlash {
 		init.setGuildOnly(info.isGuildOnly());
 		if(info.getOptions() != null) {
 			info.getOptions().stream().forEach(option -> {
-				init.addOption(option.getType(), option.getName(), option.getDescription(), option.isRequired());
+				init.addOption(option.getType(), option.getName(), option.getDescription(), option.isRequired(), option.isAutoCompleteSupported());
 			});
 		}
 		return init;
@@ -64,14 +64,20 @@ public abstract class BaseSlash {
 		private String name;
 		private String description;
 		private boolean required;
+		private boolean autoComplete;
 		
 		public CommandOption(OptionType type, String name, String desc, boolean required) {
+			this(type, name, desc, required, false);
+		}
+		
+		public CommandOption(OptionType type, String name, String desc, boolean required, boolean autoComplete) {
 			this.type = type;
 			this.name = name;
 			this.description = desc;
 			this.required = required;
+			this.autoComplete = autoComplete;
 		}
-		
+
 		public OptionType getType() {
 			return this.type;
 		}
@@ -86,6 +92,10 @@ public abstract class BaseSlash {
 		
 		public boolean isRequired() {
 			return this.required;
+		}
+		
+		public boolean isAutoCompleteSupported() {
+			return this.autoComplete;
 		}
 	}
 
