@@ -6,6 +6,7 @@
     	"channelID": ""
 	},
   "locale": "locale.txt",
+  "bit_rate": "44100",
   "private_role": {
   	"guildID": "roleID"
   },
