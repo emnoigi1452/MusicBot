@@ -54,6 +54,11 @@ public class JSONInternal {
 		return String.valueOf(this.internal.get("locale"));
 	}
 	
+	public String getAudioBitRate() {
+		check();
+		return String.valueOf(this.internal.get("bit_rate"));
+	}
+	
 	public String getPrivateRoleID(String guildID) {
 		check();
 		JSONObject guildConfig = (JSONObject) this.internal.get("private_role");

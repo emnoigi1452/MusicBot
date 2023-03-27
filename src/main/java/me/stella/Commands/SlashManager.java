@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import me.stella.Bot.BotModules;
 import me.stella.Commands.Implementation.LoopCommand;
+import me.stella.Discord.OsuAudioMod;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
@@ -36,12 +37,27 @@ public class SlashManager extends ListenerAdapter {
 	
 	@Override
 	public void onCommandAutoCompleteInteraction(final CommandAutoCompleteInteractionEvent event) {
-		if(event.getName().equals("loop") && event.getFocusedOption().getName().equals("mode")) {
-			List<Command.Choice> options = Stream.of(LoopCommand.autoComplete)
-					.filter(word -> word.startsWith(event.getFocusedOption().getValue()))
-					.map(word -> new Command.Choice(word, word))
-					.collect(Collectors.toList());
-			event.replyChoices(options).queue();
+		List<Command.Choice> choices = null;
+		switch(event.getName()) {
+			case "loop":
+				if(event.getFocusedOption().getName().equals("mode")) {
+					choices = Stream.of(LoopCommand.autoComplete)
+							.filter(word -> word.startsWith(event.getFocusedOption().getValue()))
+							.map(word -> new Command.Choice(word, word))
+							.collect(Collectors.toList());
+					event.replyChoices(choices).queue();
+				}
+				break;
+			case "play":
+				if(event.getFocusedOption().getName().equals("mod")) {
+					choices = Stream.of(OsuAudioMod.MODS)
+							.filter(word -> word.startsWith(event.getFocusedOption().getValue()))
+							.map(word -> new Command.Choice(word, word))
+							.collect(Collectors.toList());
+					event.replyChoices(choices).queue();
+				}
+				break;
+			default: return;
 		}
 	}
 	

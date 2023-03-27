@@ -10,6 +10,7 @@ import me.stella.Bot.BotModules;
 import me.stella.Bot.MusicBot;
 import me.stella.Commands.BaseSlash;
 import me.stella.Discord.AsyncPlayerExecutor;
+import me.stella.Discord.OsuAudioMod;
 import me.stella.Radio.AudioListener;
 import me.stella.Radio.AudioPanel;
 import me.stella.Radio.AudioPlayerSendHandler;
@@ -34,6 +35,7 @@ public class PlayCommand extends BaseSlash {
 	public static List<CommandOption> initParameters() {
 		List<CommandOption> options = new LinkedList<CommandOption>();
 		options.add(new CommandOption(OptionType.ATTACHMENT, "audio", "The specified audio file", true));
+		options.add(new CommandOption(OptionType.STRING, "mod", "An additional audio mod (osu!) for the song", false, true));
 		return options;
 	}
 
@@ -69,7 +71,22 @@ public class PlayCommand extends BaseSlash {
 				e.getHook().sendMessage(BotModules.getLocale().getMessage("loading")).queue();
 				Thread.sleep(2000L);
 				MusicBot.logger.log(Level.INFO, "Downloading file to vault...");
-				new Thread(new AsyncPlayerExecutor(audioFile)).start();
+				OsuAudioMod mod = OsuAudioMod._NoMod_();
+				if(e.getOption("mod") != null) {
+					String audioMod = e.getOption("mod").getAsString();
+					switch(audioMod.toUpperCase()) {
+						case "HT":
+							mod = OsuAudioMod._HalfTime_(); break;
+						case "DT":
+							mod = OsuAudioMod._DoubleTime_(); break;
+						case "NC":
+							mod = OsuAudioMod._Nightcore_(); break;
+						case "NM":
+						default:
+							break;
+					}
+				}
+				new Thread(new AsyncPlayerExecutor(audioFile, mod)).start();
 			} catch(Throwable t) { t.printStackTrace(); e.reply(BotModules.getLocale().getMessage("error")).queue(); }
 		} else e.reply(BotModules.getLocale().getMessage("no_permission")).queue();
 	}

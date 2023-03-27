@@ -136,7 +136,7 @@ public class AudioPanel extends AudioEventAdapter {
 	private String buildSongName(AudioTrack track, String backup) {
 		assert (track != null);
 		AudioTrackInfo meta = track.getInfo(); String parsed = meta.author + " - " + meta.title;
-		return parsed.equals("Unknown artist - Unknown title") ? backup : parsed;
+		return parsed.contains("Unknown artist") || parsed.contains("Unknown title") ? backup : parsed;
 	}
 	
 	public synchronized void queueAudio(final String path, String fileName) {
