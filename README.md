@@ -1,6 +1,6 @@
 # MusicBot
-Backup - A custom audio loader for Discord
-Author: **StellarSeal**
+- Backup - A custom audio loader for Discord
+- Author: **StellarSeal**
 
 # Dependencies
 - Java (Maven): **JDA, Lavaplayer**
